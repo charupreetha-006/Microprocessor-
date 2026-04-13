@@ -1,0 +1,27 @@
+		OUTPUT 2500AD
+.ORG 2000H
+DATA SEGMENT
+STRING1 DB "HELLO WORLD$"   
+RESULT  DB 00H             
+DATA ENDS
+
+CODE SEGMENT
+    ASSUME CS:CODE, DS:DATA, ES:DATA
+    MOV AX, DATA
+    MOV DS, AX
+    MOV ES, AX               
+    LEA DI, STRING1       
+    MOV AL, '$'          
+    MOV CX, 0FFFFH           
+    CLD                  
+    REPNE SCASB        
+    DEC DI               
+    MOV AX, DI
+    LEA BX, STRING1
+    SUB AX, BX           
+    
+    MOV RESULT, AL        
+    HLT
+
+CODE ENDS
+END
